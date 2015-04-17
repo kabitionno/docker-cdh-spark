@@ -16,9 +16,6 @@ service hadoop-hdfs-datanode start
 echo "Starting Apache Spark"
 $SPARK_HOME/sbin/start-all.sh
 
-echo "Starting hive-metastore"
-service hive-metastore start
-
 if [[ $1 == "-d" ]]; then
   while true; do sleep 5s; done
 fi

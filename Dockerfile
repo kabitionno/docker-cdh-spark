@@ -25,7 +25,7 @@ RUN echo -e "export JAVA_HOME=/usr/java/latest\nexport PATH=$JAVA_HOME/bin:$PATH
 
 # CDH-5.3.0
 RUN wget archive.cloudera.com/cdh5/one-click-install/redhat/6/x86_64/cloudera-cdh-5-0.x86_64.rpm
-RUN rpm -i cloudera-cdh-5-0.x86_64.rpm
+RUN rpm -i cloudera-cdh-5-0.x86_64.rpm; rm cloudera-cdh-5-0.x86_64.rpm
 RUN rpm --import http://archive.cloudera.com/cdh5/redhat/6/x86_64/cdh/RPM-GPG-KEY-cloudera
 RUN yum clean all; yum install -y hadoop-hdfs-namenode hadoop-hdfs-secondarynamenode hadoop-hdfs-datanode hive hive-metastore
 

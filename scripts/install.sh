@@ -27,10 +27,10 @@ build_spark_13() {
 install_spark() {
   mkdir /usr/lib/spark
   echo "Installing Apache Spark release 1.3.1"
-  cd /tmp; wget -O spark-1.3.1-rc1.tar.gz https://github.com/apache/spark/archive/v1.3.1-rc1.tar.gz; tar zxvf spark-1.3.1-rc1.tar.gz; mv spark-1.3.1-rc1 spark
+  cd /tmp; wget -O spark-1.3.1-rc3.tar.gz https://github.com/apache/spark/archive/v1.3.1.tar.gz; tar zxvf spark-1.3.1-rc3.tar.gz; mv spark-1.3.1 spark
   build_spark_13
   echo "Installation of Apache Spark 1.3.1 complete"
-  rm -rf /tmp/spark-1.3.1-rc1 /tmp/spark
+  rm -rf /tmp/spark-1.3.1-rc3 /tmp/spark
 }
 
 install_maven() {
@@ -50,7 +50,7 @@ install_maven() {
 cleanup() {
   rm -rf /tmp/maven.tgz /tmp/apache-maven-*
   rm -rf /tmp/protobuf-2.6.0 /tmp/protobuf-2.6.0.tar.gz
-  rm -rf /tmp/spark /tmp/spark-1.3.1-rc1.tar.gz /tmp/make-distribution.sh
+  rm -rf /tmp/spark /tmp/spark-1.3.1-rc3.tar.gz /tmp/make-distribution.sh
   rm -rf /tmp/thrift-0.9.0 /tmp/thrift-0.9.0.tar.gz
 }
 
