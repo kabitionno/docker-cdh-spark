@@ -5,10 +5,12 @@ USER root
 
 ADD scripts/* /tmp/
 
-RUN yum -y update; yum clean all
-
 # Install prerequisites
-RUN yum install -y curl which tar sudo htop openssh-server openssh-clients automake autoconf gcc-c++ m4 perl git libtool libevent-devel zlib-devel openssl-devel openssl wget git mysql-server mysql mysql-connector-java python-devel mysql-devel sqlite-devel libxml2-devel libxslt-devel epel-release openldap-clients openldap-servers vim; yum update -y libselinux; yum -y update; yum -y install nginx; yum clean all
+RUN yum install -y curl which tar sudo htop openssh-server openssh-clients automake autoconf gcc-c++ m4 perl git libtool libevent-devel zlib-devel openssl-devel openssl wget git mysql-server mysql mysql-connector-java python-devel mysql-devel sqlite-devel libxml2-devel libxslt-devel epel-release openldap-clients openldap-servers vim tree; yum update -y libselinux
+
+RUN wget nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+RUN rpm -i nginx-release-centos-6-0.el6.ngx.noarch.rpm; rm nginx-release-centos-6-0.el6.ngx.noarch.rpm
+RUN yum install nginx; yum clean all
 
 # Passwordless SSH
 RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key; ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key; ssh-keygen -q -N "" -t rsa -f /root/.ssh/id_rsa
@@ -29,17 +31,14 @@ RUN rpm -i cloudera-cdh-5-0.x86_64.rpm; rm cloudera-cdh-5-0.x86_64.rpm
 RUN rpm --import http://archive.cloudera.com/cdh5/redhat/6/x86_64/cdh/RPM-GPG-KEY-cloudera
 RUN yum clean all; yum install -y hadoop-hdfs-namenode hadoop-hdfs-secondarynamenode hadoop-hdfs-datanode hive hive-metastore
 
-# Set required environment variables
 ENV HADOOP_CONF_DIR /etc/hadoop/conf
 ENV HADOOP_HOME /usr/lib/hadoop
 ENV HADOOP_PREFIX /usr/lib/hadoop
 ENV HIVE_CONF_DIR /etc/hive/conf
 ENV SPARK_HOME /usr/lib/spark/1.3.1
 
-# Install maven, spark, thrift, protobuf
 RUN sh /tmp/install.sh
 
-# Configure hadoop, hive-metastore
 RUN sh /tmp/configure.sh
 
 ADD bootstrap.sh /etc/bootstrap.sh
