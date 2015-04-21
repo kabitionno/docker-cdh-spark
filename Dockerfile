@@ -10,7 +10,7 @@ RUN yum install -y curl which tar sudo htop openssh-server openssh-clients autom
 
 RUN wget nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
 RUN rpm -i nginx-release-centos-6-0.el6.ngx.noarch.rpm; rm nginx-release-centos-6-0.el6.ngx.noarch.rpm
-RUN yum install nginx; yum clean all
+RUN yum install -y nginx; yum clean all
 
 # Passwordless SSH
 RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key; ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key; ssh-keygen -q -N "" -t rsa -f /root/.ssh/id_rsa
